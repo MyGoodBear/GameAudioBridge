@@ -1,4 +1,4 @@
-# Game Audio Bridge 0.4 — experimental Windows prototype
+# Game Audio Bridge 0.5 — experimental Windows prototype
 
 This is **not yet a verified production application**. The Windows build workflow in `.github/workflows/windows-build.yml` can build x64/x86 binaries and package `GameAudioBridge-Setup.exe` on a Windows GitHub Actions runner. This Linux environment does not have the Windows SDK/MSVC or Inno Setup, so no compiled installer is included in this source archive.
 
@@ -31,7 +31,7 @@ The output is `Output\GameAudioBridge-Setup.exe`.
 
 ## Use
 
-After installing, run `Launch-Bridge.ps1`, choose the target process architecture, then enter the PID from Task Manager > Details. The target must be running, and its audio client must not already have been created before injection. Prefer a normal, non-protected test application. Do not inject into anti-cheat or system processes. Check `%TEMP%\GameAudioBridge.log`.
+After installing, run `Launch-Bridge.ps1` and click the button to browse for the game/application EXE. The script detects x86/x64 from the EXE header and chooses the matching launcher and DLL. The launcher creates the process suspended, loads the hook DLL, and only then resumes the application, so you do not need to look up a PID or race the game startup. This launches the selected EXE directly; launchers that start a separate child process may require selecting the actual game EXE instead. Do not use with anti-cheat/protected or system processes. Check `%TEMP%\GameAudioBridge.log`.
 
 ## Known limitations
 
